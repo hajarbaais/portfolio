@@ -3,6 +3,6 @@ import tailwind from '@astrojs/tailwind';
 
 export default defineConfig({
   site: 'https://hajarbaais.github.io',
-  base: '/',
+  base: '/portfolio',
   integrations: [tailwind()],
 });
