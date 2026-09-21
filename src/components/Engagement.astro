@@ -1,0 +1,43 @@
+---
+const engagements = [
+  'Meilleure participation féminine — Morocco Academia Cyber Competition (MACC 2026)',
+  'Participation active à des compétitions CTF (Capture The Flag)',
+  'Responsable Communication — ADE ENSA Agadir',
+  'Secrétaire — APPS Club ENSA Agadir',
+  'Vice-coordinatrice — Événement « Info Days » ENSA Agadir',
+];
+
+const languages = [
+  { name: 'Arabe', level: 'Langue maternelle' },
+  { name: 'Français', level: 'Courant' },
+  { name: 'Anglais', level: 'Courant' },
+];
+---
+<section id="engagement" class="section reveal">
+  <p class="section-title">07 — Engagement & CTF</p>
+  <h2 class="section-heading">Implication & Langues</h2>
+  <div class="grid md:grid-cols-2 gap-10">
+    <div>
+      <h3 class="font-mono text-sm text-accent mb-4">Engagement</h3>
+      <ul class="space-y-3 text-ink-muted text-sm">
+        {engagements.map((e) => (
+          <li class="flex gap-3">
+            <span class="text-accent mt-1">◆</span>
+            <span>{e}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+    <div>
+      <h3 class="font-mono text-sm text-accent mb-4">Langues</h3>
+      <ul class="space-y-3">
+        {languages.map((l) => (
+          <li class="flex justify-between border-b border-line pb-2">
+            <span class="text-white">{l.name}</span>
+            <span class="text-ink-muted text-sm">{l.level}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</section>

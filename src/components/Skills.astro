@@ -1,0 +1,26 @@
+---
+const skills = [
+  { category: 'Sécurité Système', items: ['Hardening Linux', 'IAM', 'PAM', 'DAC/MAC', 'Tripwire', 'Quotas disque'] },
+  { category: 'Sécurité Web', items: ['OWASP Top 10', "Tests d'intrusion", 'Analyse de vulnérabilités'] },
+  { category: 'Réseaux', items: ['Tunnels IPsec', 'DNS', 'NFS', 'LDAP', 'Firewalls', 'Proxy Squid'] },
+  { category: 'Cryptographie', items: ['AES', 'DES', 'RSA', 'ECC', 'PKI', 'Certificats', 'Hachage'] },
+  { category: 'Langages', items: ['C', 'Java', 'Python', 'PHP', 'JavaScript', 'Assembleur x86-64 (NASM)'] },
+  { category: 'Frameworks', items: ['Angular', 'Laravel', 'MySQL', 'XAMPP', 'FastAPI'] },
+  { category: 'DevOps', items: ['Git & GitHub', 'Virtualisation / Conteneurisation'] },
+  { category: 'Data & IA', items: ['Hadoop', 'Big Data'] },
+];
+---
+<section id="skills" class="section reveal">
+  <p class="section-title">04 — Expertise technique</p>
+  <h2 class="section-heading">Compétences</h2>
+  <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+    {skills.map((s) => (
+      <div class="card">
+        <h3 class="font-mono text-sm text-accent mb-3">{s.category}</h3>
+        <div class="flex flex-wrap gap-2">
+          {s.items.map((i) => <span class="tag">{i}</span>)}
+        </div>
+      </div>
+    ))}
+  </div>
+</section>

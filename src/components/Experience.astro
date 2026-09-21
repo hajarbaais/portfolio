@@ -1,0 +1,47 @@
+---
+const experiences = [
+  {
+    role: 'Stagiaire en Sécurité Applicative',
+    company: 'Netalek Services',
+    period: 'Juillet 2026',
+    points: [
+      "Mise en place d'un système de sécurité pour une solution de gestion électronique des documents (GED), dans un contexte de transformation digitale.",
+      "Développement d'une API de sécurité avec FastAPI : chiffrement AES-256-GCM, contrôle d'intégrité des documents, analyse antivirus, authentification JWT.",
+      'Supervision et détection des menaces avec Wazuh SIEM ; intégration de contrôles de sécurité automatisés dans le pipeline CI/CD.',
+    ],
+  },
+  {
+    role: 'Stagiaire en Cybersécurité & Pentest Web',
+    company: 'YOOL Education, Agadir',
+    period: 'Juillet 2025',
+    points: [
+      "Audit de sécurité multidimensionnel : évaluation de la résilience du site yool.education via reconnaissance (footprinting) et tests d'intrusion manuels/automatisés.",
+      "Analyse de vulnérabilités (OWASP Top 10) : identification et exploitation de failles critiques.",
+      'Remédiation & Hardening : rédaction de rapports techniques détaillés et mise en œuvre de recommandations de durcissement serveur et correctifs de sécurité applicative.',
+    ],
+  },
+];
+---
+<section id="experience" class="section reveal">
+  <p class="section-title">03 — Expérience</p>
+  <h2 class="section-heading">Expérience professionnelle</h2>
+  <div class="space-y-8">
+    {experiences.map((exp) => (
+      <div class="card">
+        <div class="flex flex-wrap justify-between items-baseline gap-2 mb-4">
+          <h3 class="text-lg font-medium text-white">{exp.role}</h3>
+          <span class="font-mono text-xs text-accent">{exp.period}</span>
+        </div>
+        <p class="text-accent-soft text-sm mb-4">{exp.company}</p>
+        <ul class="space-y-2 text-ink-muted text-sm leading-relaxed">
+          {exp.points.map((p) => (
+            <li class="flex gap-3">
+              <span class="text-accent mt-1.5">▹</span>
+              <span>{p}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    ))}
+  </div>
+</section>

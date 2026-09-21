@@ -1,0 +1,30 @@
+---
+const links = [
+  { label: 'Email', value: 'baaishajar20@gmail.com', href: 'mailto:baaishajar20@gmail.com' },
+  { label: 'GitHub', value: 'github.com/hajarbaais', href: 'https://github.com/hajarbaais' },
+  { label: 'LinkedIn', value: 'linkedin.com/in/baaishajar', href: 'https://www.linkedin.com/in/baaishajar' },
+];
+---
+<section id="contact" class="section reveal">
+  <p class="section-title">08 — Contact</p>
+  <h2 class="section-heading">Me contacter</h2>
+  <p class="text-ink-muted max-w-2xl mb-10 leading-relaxed">
+    Ouverte aux opportunités de stage, aux collaborations sur des projets de sécurité
+    et aux échanges autour de la cybersécurité.
+  </p>
+  <div class="grid sm:grid-cols-3 gap-4">
+    {links.map((l) => (
+      <a href={l.href} target="_blank" rel="noopener" class="card group">
+        <p class="font-mono text-xs text-accent mb-2">{l.label}</p>
+        <p class="text-white text-sm group-hover:text-accent transition-colors break-all">{l.value}</p>
+      </a>
+    ))}
+  </div>
+</section>
+
+<footer class="border-t border-line mt-20">
+  <div class="max-w-5xl mx-auto px-6 py-8 flex flex-wrap justify-between items-center gap-4">
+    <p class="font-mono text-xs text-ink-faint">© {new Date().getFullYear()} Hajar BAAIS</p>
+    <p class="font-mono text-xs text-ink-faint">Built with Astro & Tailwind</p>
+  </div>
+</footer>

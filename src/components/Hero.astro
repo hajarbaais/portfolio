@@ -1,0 +1,43 @@
+---
+---
+<section class="min-h-screen flex items-center justify-center px-6 relative">
+  <div class="max-w-4xl w-full">
+    <p class="font-mono text-accent text-sm mb-4">// Cybersecurity Engineer Student</p>
+    <h1 class="text-4xl md:text-6xl font-semibold text-white leading-tight mb-6">
+      Hajar BAAIS
+      <span class="block text-ink-muted text-2xl md:text-3xl mt-2 font-mono">
+        <span id="typed"></span><span class="text-accent animate-blink">_</span>
+      </span>
+    </h1>
+    <p class="text-ink-muted text-lg max-w-2xl mb-10 leading-relaxed">
+      Étudiante ingénieure en cybersécurité à l'ENSA Agadir. Passionnée par le pentest,
+      la sécurité applicative et la détection de menaces. J'aime comprendre comment les
+      systèmes se cassent pour mieux les défendre.
+    </p>
+    <div class="flex flex-wrap gap-4">
+      <a href="#projects" class="px-6 py-3 bg-accent text-bg font-medium rounded hover:bg-accent-soft transition-colors">
+        Voir mes projets
+      </a>
+      <a href="#contact" class="px-6 py-3 border border-line text-ink rounded hover:border-accent hover:text-accent transition-colors">
+        Me contacter
+      </a>
+    </div>
+  </div>
+</section>
+
+<script>
+  const words = ['Pentest Web', 'Sécurité Applicative', 'Détection de Menaces', 'Cryptographie'];
+  let i = 0, j = 0, current = '', deleting = false;
+  const el = document.getElementById('typed');
+  function tick() {
+    if (!el) return;
+    const word = words[i];
+    current = deleting ? word.substring(0, j--) : word.substring(0, j++);
+    el.textContent = current;
+    let speed = deleting ? 50 : 100;
+    if (!deleting && current === word) { speed = 1500; deleting = true; }
+    else if (deleting && current === '') { deleting = false; i = (i + 1) % words.length; speed = 300; }
+    setTimeout(tick, speed);
+  }
+  tick();
+</script>

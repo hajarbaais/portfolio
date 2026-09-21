@@ -1,0 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-bg text-ink font-sans antialiased;
+    background-image:
+      radial-gradient(circle at 20% 0%, rgba(34, 211, 238, 0.06), transparent 40%),
+      radial-gradient(circle at 80% 100%, rgba(34, 211, 238, 0.04), transparent 40%);
+  }
+  ::selection {
+    @apply bg-accent/30 text-white;
+  }
+}
+
+@layer components {
+  .section {
+    @apply max-w-5xl mx-auto px-6 py-20 md:py-28;
+  }
+  .section-title {
+    @apply font-mono text-sm uppercase tracking-widest text-accent mb-3;
+  }
+  .section-heading {
+    @apply text-3xl md:text-4xl font-semibold text-white mb-12;
+  }
+  .card {
+    @apply bg-bg-card border border-line rounded-lg p-6 transition-all duration-300 hover:border-accent/50 hover:-translate-y-1;
+  }
+  .tag {
+    @apply inline-block font-mono text-xs px-2 py-1 rounded border border-line text-ink-muted;
+  }
+  .link {
+    @apply text-ink-muted hover:text-accent transition-colors duration-200;
+  }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}

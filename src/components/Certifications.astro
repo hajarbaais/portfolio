@@ -1,0 +1,21 @@
+---
+const certs = [
+  'Cisco Ethical Hacker',
+  'Cisco Network Fundamentals',
+  'Cisco Introduction to Cybersecurity',
+  'Cybrary : Introduction to AI Technology',
+  'Formation droit numérique et protection des données — CNDP',
+];
+---
+<section id="certifications" class="section reveal">
+  <p class="section-title">06 — Certifications</p>
+  <h2 class="section-heading">Certifications & Formations</h2>
+  <ul class="grid sm:grid-cols-2 gap-3">
+    {certs.map((c) => (
+      <li class="flex items-start gap-3 text-ink-muted">
+        <span class="text-accent mt-1">◆</span>
+        <span>{c}</span>
+      </li>
+    ))}
+  </ul>
+</section>

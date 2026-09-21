@@ -1,0 +1,65 @@
+---
+const projects = [
+  {
+    title: 'Système de Détection de Menaces — Architecture Lambda',
+    stack: ['Python', 'Spark', 'Hadoop', 'Machine Learning'],
+    points: [
+      'Conception de la couche batch : ingestion, traitement massif et classification des données historiques.',
+      'Entraînement et évaluation de modèles supervisés sur datasets de menaces cybersécurité.',
+    ],
+  },
+  {
+    title: 'Détection du phishing par e-mail',
+    stack: ['Python', 'Flask', 'Pytest'],
+    points: [
+      'Détection de spoofing : analyse automatique des headers SPF/DKIM/DMARC.',
+      'Système de scoring configurable via YAML, double interface Web & CLI.',
+    ],
+  },
+  {
+    title: 'API Sentinel',
+    stack: ['Python', 'FastAPI'],
+    points: [
+      'Tests automatisés de sécurité spécifiques API (OWASP API Top 10 : BOLA, broken auth, excessive data exposure).',
+      "Protection runtime : détection d'abus en temps réel (scraping, credential stuffing, rate abuse).",
+    ],
+  },
+  {
+    title: 'Architecture Microservices gRPC',
+    stack: ['Python', 'Protobuf', 'TLS'],
+    points: [
+      "Ingestion et analyse de logs en streaming temps réel pour la détection d'anomalies.",
+      'Implémentation de canaux de communication chiffrés via TLS et sérialisation haute performance.',
+    ],
+  },
+  {
+    title: 'Serveur HTTP Low-Level',
+    stack: ['Assembleur x86-64 (NASM)'],
+    points: [
+      "Développement intégral d'un serveur web sans bibliothèques, uniquement avec syscalls Linux.",
+    ],
+  },
+];
+---
+<section id="projects" class="section reveal">
+  <p class="section-title">05 — Projets</p>
+  <h2 class="section-heading">Projets phares</h2>
+  <div class="grid md:grid-cols-2 gap-6">
+    {projects.map((p) => (
+      <div class="card flex flex-col">
+        <h3 class="text-lg font-medium text-white mb-3">{p.title}</h3>
+        <div class="flex flex-wrap gap-2 mb-4">
+          {p.stack.map((s) => <span class="tag">{s}</span>)}
+        </div>
+        <ul class="space-y-2 text-ink-muted text-sm leading-relaxed">
+          {p.points.map((pt) => (
+            <li class="flex gap-3">
+              <span class="text-accent mt-1.5">▹</span>
+              <span>{pt}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    ))}
+  </div>
+</section>
