@@ -1,42 +1,86 @@
 ---
-const projects = [
+const gh = (repo: string) => `https://github.com/hajarbaais/${repo}`;
+
+const featured = [
   {
-    title: 'Système de Détection de Menaces — Architecture Lambda',
-    stack: ['Python', 'Spark', 'Hadoop', 'Machine Learning'],
+    title: "GED — Service d'archivage probant",
+    tagline: 'Sécurité de bout en bout pour une Gestion Électronique de Documents',
+    repo: gh('ged-security-project'),
+    stack: ['FastAPI', 'PostgreSQL', 'HashiCorp Vault', 'Sigstore Rekor', 'ClamAV', 'Wazuh', 'Docker', 'GitHub Actions'],
     points: [
-      'Conception de la couche batch : ingestion, traitement massif et classification des données historiques.',
-      'Entraînement et évaluation de modèles supervisés sur datasets de menaces cybersécurité.',
+      "Chiffrement par enveloppe AES-256-GCM : une clé par document, protégée par une clé maîtresse gérée dans Vault.",
+      'Preuve d’intégrité inviolable : empreintes SHA-256 scellées dans un registre de transparence (arbre de Merkle, RFC 6962).',
+      'JWT, RBAC par rôle et par ressource, rate limiting, antivirus, DLP (IBAN/cartes), protection anti zip-bomb et zip-slip.',
+      'Supervision SIEM : 9 types d’événements de sécurité et règles Wazuh dédiées ; scans Trivy et OWASP ZAP en CI/CD.',
     ],
-  },
-  {
-    title: 'Détection du phishing par e-mail',
-    stack: ['Python', 'Flask', 'Pytest'],
-    points: [
-      'Détection de spoofing : analyse automatique des headers SPF/DKIM/DMARC.',
-      'Système de scoring configurable via YAML, double interface Web & CLI.',
-    ],
+    metrics: ['350+ tests unitaires', 'Réalisé en stage chez Netalek'],
   },
   {
     title: 'API Sentinel',
-    stack: ['Python', 'FastAPI'],
+    tagline: 'Framework de test de sécurité pour API REST et GraphQL',
+    repo: gh('API-Sentinel'),
+    stack: ['Python 3.11', 'OpenAPI', 'GraphQL', 'SARIF'],
     points: [
-      'Tests automatisés de sécurité spécifiques API (OWASP API Top 10 : BOLA, broken auth, excessive data exposure).',
-      "Protection runtime : détection d'abus en temps réel (scraping, credential stuffing, rate abuse).",
+      'Détection BOLA/IDOR par tests différentiels multi-comptes : exploitabilité prouvée par rejeu, pas de simple heuristique.',
+      'Couvre aussi BFLA, mass assignment, exposition excessive de données, absence de rate limiting, abus GraphQL et SSRF vers les métadonnées cloud.',
+      'Chaque finding inclut une preuve rejouable et un score de confiance ; allowlist de cibles obligatoire avant tout scan.',
+    ],
+    metrics: ['OWASP API Top 10', 'Rapports HTML · JSON · SARIF'],
+  },
+];
+
+const projects = [
+  {
+    title: 'Phishing Email Analyzer',
+    repo: gh('phishing-email-detection'),
+    stack: ['Python', 'Flask', 'Pytest'],
+    points: [
+      'Analyse des en-têtes SPF/DKIM/DMARC et détection de spoofing.',
+      'Scan des URLs et des pièces jointes (archives inspectées en mémoire), score de risque configurable en YAML.',
     ],
   },
   {
-    title: 'Architecture Microservices gRPC',
-    stack: ['Python', 'Protobuf', 'TLS'],
+    title: 'Serveur HTTP en assembleur x86-64',
+    repo: gh('webserver-asm'),
+    stack: ['NASM', 'Linux syscalls', 'Docker'],
     points: [
-      "Ingestion et analyse de logs en streaming temps réel pour la détection d'anomalies.",
-      'Implémentation de canaux de communication chiffrés via TLS et sérialisation haute performance.',
+      'Serveur HTTP/1.1 écrit entièrement en assembleur, sans bibliothèque, uniquement avec des appels système Linux.',
+      'Sert des fichiers statiques et gère les erreurs 404, avec un binaire de moins de 15 Ko.',
     ],
   },
   {
-    title: 'Serveur HTTP Low-Level',
-    stack: ['Assembleur x86-64 (NASM)'],
+    title: 'Microservices gRPC sécurisés par TLS',
+    repo: gh('grpc_chat_log_project'),
+    stack: ['Python', 'gRPC', 'Protobuf', 'TLS'],
     points: [
-      "Développement intégral d'un serveur web sans bibliothèques, uniquement avec syscalls Linux.",
+      'LogService : ingestion et analyse de logs en unary et en streaming.',
+      'ChatService : messagerie bidirectionnelle temps réel ; canaux chiffrés avec une autorité de certification dédiée.',
+    ],
+  },
+  {
+    title: 'Système de veille et d’alerte cybersécurité',
+    repo: gh('security-monitoring-tool'),
+    stack: ['Python', 'spaCy', 'scikit-learn', 'FastAPI', 'SQLite'],
+    points: [
+      'Collecte automatique des CVE (API NVD), de l’OWASP Top 10 et de flux de veille.',
+      'Classification NLP/ML de la pertinence et de la sévérité, alertes par Email, Slack et Telegram.',
+    ],
+  },
+  {
+    title: 'Dark Data Analyzer',
+    repo: gh('Dark_Data'),
+    stack: ['Python', 'Linux'],
+    points: [
+      'Parcours du système de fichiers en lecture seule pour repérer les données anciennes, inutilisées ou à risque.',
+      'Détection des permissions trop ouvertes et des extensions sensibles, rapports JSON, CSV et HTML.',
+    ],
+  },
+  {
+    title: 'Détection de menaces : architecture Lambda',
+    stack: ['Python', 'Spark', 'Hadoop', 'Machine Learning'],
+    points: [
+      'Couche batch : ingestion, traitement massif et classification de logs historiques.',
+      'Entraînement et évaluation de modèles supervisés sur des datasets de menaces.',
     ],
   },
 ];
@@ -44,14 +88,21 @@ const projects = [
 <section id="projects" class="section reveal">
   <p class="section-title">05 — Projets</p>
   <h2 class="section-heading">Projets phares</h2>
-  <div class="grid md:grid-cols-2 gap-6">
-    {projects.map((p) => (
-      <div class="card flex flex-col">
-        <h3 class="text-lg font-medium text-white mb-3">{p.title}</h3>
-        <div class="flex flex-wrap gap-2 mb-4">
-          {p.stack.map((s) => <span class="tag">{s}</span>)}
+
+  <div class="space-y-6 mb-6">
+    {featured.map((p) => (
+      <article class="card border-accent/30">
+        <div class="flex flex-wrap justify-between items-start gap-3 mb-2">
+          <div>
+            <p class="font-mono text-xs text-accent mb-1">Projet vedette</p>
+            <h3 class="text-xl font-semibold text-white">{p.title}</h3>
+          </div>
+          <a href={p.repo} target="_blank" rel="noopener" class="font-mono text-xs link border border-line rounded px-3 py-1.5 hover:border-accent">
+            Code source ↗
+          </a>
         </div>
-        <ul class="space-y-2 text-ink-muted text-sm leading-relaxed">
+        <p class="text-ink-muted mb-4">{p.tagline}</p>
+        <ul class="space-y-2 text-ink-muted text-sm leading-relaxed mb-5">
           {p.points.map((pt) => (
             <li class="flex gap-3">
               <span class="text-accent mt-1.5">▹</span>
@@ -59,7 +110,47 @@ const projects = [
             </li>
           ))}
         </ul>
-      </div>
+        <div class="flex flex-wrap gap-2 mb-3">
+          {p.metrics.map((m) => (
+            <span class="font-mono text-xs px-2 py-1 rounded bg-accent/10 text-accent-soft">{m}</span>
+          ))}
+        </div>
+        <div class="flex flex-wrap gap-2">
+          {p.stack.map((s) => <span class="tag">{s}</span>)}
+        </div>
+      </article>
     ))}
   </div>
+
+  <div class="grid md:grid-cols-2 gap-6">
+    {projects.map((p) => (
+      <article class="card flex flex-col">
+        <div class="flex justify-between items-start gap-3 mb-3">
+          <h3 class="text-lg font-medium text-white">{p.title}</h3>
+          {p.repo && (
+            <a href={p.repo} target="_blank" rel="noopener" class="link font-mono text-xs shrink-0 mt-1" aria-label={`Code source de ${p.title}`}>
+              GitHub ↗
+            </a>
+          )}
+        </div>
+        <ul class="space-y-2 text-ink-muted text-sm leading-relaxed mb-4 flex-1">
+          {p.points.map((pt) => (
+            <li class="flex gap-3">
+              <span class="text-accent mt-1.5">▹</span>
+              <span>{pt}</span>
+            </li>
+          ))}
+        </ul>
+        <div class="flex flex-wrap gap-2">
+          {p.stack.map((s) => <span class="tag">{s}</span>)}
+        </div>
+      </article>
+    ))}
+  </div>
+
+  <p class="mt-10 text-center">
+    <a href="https://github.com/hajarbaais?tab=repositories" target="_blank" rel="noopener" class="font-mono text-sm link">
+      Voir tous les dépôts sur GitHub ↗
+    </a>
+  </p>
 </section>

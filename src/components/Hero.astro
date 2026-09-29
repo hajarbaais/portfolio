@@ -1,20 +1,37 @@
 ---
+const socials = [
+  { label: 'GitHub', href: 'https://github.com/hajarbaais' },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/baaishajar' },
+  { label: 'TryHackMe', href: 'https://tryhackme.com/p/orobida' },
+  { label: 'Email', href: 'mailto:baaishajar20@gmail.com' },
+];
+
+const stats = [
+  { value: '2', label: 'stages en cybersécurité' },
+  { value: '10+', label: 'projets publics sur GitHub' },
+  { value: '350+', label: 'tests automatisés (projet GED)' },
+  { value: 'MACC 2026', label: 'meilleure participation féminine' },
+];
 ---
-<section class="min-h-screen flex items-center justify-center px-6 relative">
+<section class="min-h-screen flex items-center justify-center px-6 pt-24 pb-16 relative">
   <div class="max-w-4xl w-full">
-    <p class="font-mono text-accent text-sm mb-4">// Cybersecurity Engineer Student</p>
+    <p class="inline-flex items-center gap-2 font-mono text-xs text-accent border border-accent/30 bg-accent/5 rounded-full px-3 py-1 mb-6">
+      <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+      Ouverte aux opportunités de stage
+    </p>
     <h1 class="text-4xl md:text-6xl font-semibold text-white leading-tight mb-6">
       Hajar BAAIS
       <span class="block text-ink-muted text-2xl md:text-3xl mt-2 font-mono">
-        <span id="typed"></span><span class="text-accent animate-blink">_</span>
+        <span id="typed">Pentest Web</span><span class="text-accent animate-blink">_</span>
       </span>
     </h1>
     <p class="text-ink-muted text-lg max-w-2xl mb-10 leading-relaxed">
-      Étudiante ingénieure en cybersécurité à l'ENSA Agadir. Passionnée par le pentest,
-      la sécurité applicative et la détection de menaces. J'aime comprendre comment les
-      systèmes se cassent pour mieux les défendre.
+      Élève ingénieure en cybersécurité à l'ENSA Agadir. Je conçois des outils de sécurité
+      offensive et défensive : audit d'applications web et d'API, chiffrement et intégrité
+      des données, détection de menaces. J'aime comprendre comment les systèmes cassent
+      pour mieux les défendre.
     </p>
-    <div class="flex flex-wrap gap-4">
+    <div class="flex flex-wrap gap-4 mb-8">
       <a href="#projects" class="px-6 py-3 bg-accent text-bg font-medium rounded hover:bg-accent-soft transition-colors">
         Voir mes projets
       </a>
@@ -22,13 +39,32 @@
         Me contacter
       </a>
     </div>
+    <ul class="flex flex-wrap gap-x-6 gap-y-2 font-mono text-sm mb-16">
+      {socials.map((s) => (
+        <li>
+          <a href={s.href} target="_blank" rel="noopener" class="link">
+            <span class="text-accent">↗</span> {s.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+    <dl class="grid grid-cols-2 md:grid-cols-4 gap-px bg-line border border-line rounded-lg overflow-hidden">
+      {stats.map((s) => (
+        <div class="bg-bg-soft p-5">
+          <dt class="sr-only">{s.label}</dt>
+          <dd class="font-mono text-xl md:text-2xl text-white font-semibold">{s.value}</dd>
+          <dd class="text-xs text-ink-faint mt-1">{s.label}</dd>
+        </div>
+      ))}
+    </dl>
   </div>
 </section>
 
 <script>
-  const words = ['Pentest Web', 'Sécurité Applicative', 'Détection de Menaces', 'Cryptographie'];
-  let i = 0, j = 0, current = '', deleting = false;
+  const words = ['Pentest Web', 'Sécurité des API', 'Sécurité Applicative', 'Détection de Menaces', 'Cryptographie'];
   const el = document.getElementById('typed');
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let i = 0, j = 0, current = '', deleting = false;
   function tick() {
     if (!el) return;
     const word = words[i];
@@ -39,5 +75,5 @@
     else if (deleting && current === '') { deleting = false; i = (i + 1) % words.length; speed = 300; }
     setTimeout(tick, speed);
   }
-  tick();
+  if (!reduced) tick();
 </script>
