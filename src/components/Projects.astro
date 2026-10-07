@@ -58,12 +58,13 @@ const projects = [
     ],
   },
   {
-    title: 'Système de veille et d’alerte cybersécurité',
-    repo: gh('security-monitoring-tool'),
-    stack: ['Python', 'spaCy', 'scikit-learn', 'FastAPI', 'SQLite'],
+    title: 'LLM Guardrails contre Prompt Injection et Jailbreak',
+    status: 'En cours',
+    stack: ['Python', 'FastAPI', 'DeBERTa-v3', 'Llama Guard 3', 'LangChain', 'garak / PyRIT'],
     points: [
-      'Collecte automatique des CVE (API NVD), de l’OWASP Top 10 et de flux de veille.',
-      'Classification NLP/ML de la pertinence et de la sévérité, alertes par Email, Slack et Telegram.',
+      'Proxy de sécurité multicouche placé devant une application LLM (RAG + agent avec outils) : filtre d’entrée, prompt durci, filtre de sortie et scan des documents RAG.',
+      'Couvre les injections directes et indirectes, les jailbreaks, l’obfuscation et les attaques multilingues (français, arabe, darija).',
+      'Objectif : diviser par 5 le taux de succès des attaques avec moins de 5 % de faux positifs ; décisions journalisées et mappées sur MITRE ATLAS (OWASP LLM01).',
     ],
   },
   {
@@ -127,6 +128,12 @@ const projects = [
       <article class="card flex flex-col">
         <div class="flex justify-between items-start gap-3 mb-3">
           <h3 class="text-lg font-medium text-white">{p.title}</h3>
+          {p.status && (
+            <span class="inline-flex items-center gap-1.5 font-mono text-xs text-amber-300 border border-amber-300/40 bg-amber-300/10 rounded-full px-2.5 py-0.5 shrink-0 mt-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-amber-300 animate-pulse"></span>
+              {p.status}
+            </span>
+          )}
           {p.repo && (
             <a href={p.repo} target="_blank" rel="noopener" class="link font-mono text-xs shrink-0 mt-1" aria-label={`Code source de ${p.title}`}>
               GitHub ↗
