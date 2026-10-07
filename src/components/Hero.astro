@@ -5,13 +5,6 @@ const socials = [
   { label: 'pwn.college', href: 'https://pwn.college/hacker/147257' },
   { label: 'Email', href: 'mailto:baaishajar20@gmail.com' },
 ];
-
-const stats = [
-  { value: '2', label: 'stages en cybersécurité' },
-  { value: '10+', label: 'projets publics sur GitHub' },
-  { value: '350+', label: 'tests automatisés (projet GED)' },
-  { value: 'MACC 2026', label: 'meilleure participation féminine' },
-];
 ---
 <section class="min-h-screen flex items-center justify-center px-6 pt-24 pb-16 relative">
   <div class="max-w-4xl w-full">
@@ -39,7 +32,7 @@ const stats = [
         Me contacter
       </a>
     </div>
-    <ul class="flex flex-wrap gap-x-6 gap-y-2 font-mono text-sm mb-16">
+    <ul class="flex flex-wrap gap-x-6 gap-y-2 font-mono text-sm">
       {socials.map((s) => (
         <li>
           <a href={s.href} target="_blank" rel="noopener" class="link">
@@ -48,15 +41,6 @@ const stats = [
         </li>
       ))}
     </ul>
-    <dl class="grid grid-cols-2 md:grid-cols-4 gap-px bg-line border border-line rounded-lg overflow-hidden">
-      {stats.map((s) => (
-        <div class="bg-bg-soft p-5">
-          <dt class="sr-only">{s.label}</dt>
-          <dd class="font-mono text-xl md:text-2xl text-white font-semibold">{s.value}</dd>
-          <dd class="text-xs text-ink-faint mt-1">{s.label}</dd>
-        </div>
-      ))}
-    </dl>
   </div>
 </section>
 
