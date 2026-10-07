@@ -1,9 +1,8 @@
 ---
 const links = [
   { label: 'Email', value: 'baaishajar20@gmail.com', href: 'mailto:baaishajar20@gmail.com' },
-  { label: 'GitHub', value: 'github.com/hajarbaais', href: 'https://github.com/hajarbaais' },
+  { label: 'Téléphone', value: '+212 7 62 60 95 75', href: 'tel:+212762609575' },
   { label: 'LinkedIn', value: 'linkedin.com/in/baaishajar', href: 'https://www.linkedin.com/in/baaishajar' },
-  { label: 'TryHackMe', value: 'tryhackme.com/p/orobida', href: 'https://tryhackme.com/p/orobida' },
 ];
 ---
 <section id="contact" class="section reveal">
@@ -13,9 +12,9 @@ const links = [
     Ouverte aux opportunités de stage, aux collaborations sur des projets de sécurité
     et aux échanges autour de la cybersécurité.
   </p>
-  <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+  <div class="grid sm:grid-cols-3 gap-4">
     {links.map((l) => (
-      <a href={l.href} target={l.href.startsWith('mailto:') ? undefined : '_blank'} rel="noopener" class="card group">
+      <a href={l.href} target={l.href.startsWith('http') ? '_blank' : undefined} rel="noopener" class="card group">
         <p class="font-mono text-xs text-accent mb-2">{l.label}</p>
         <p class="text-white text-sm group-hover:text-accent transition-colors break-all">{l.value}</p>
       </a>
