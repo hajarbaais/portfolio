@@ -5,28 +5,28 @@ export default {
     extend: {
       colors: {
         bg: {
-          DEFAULT: '#08090d',
-          soft: '#0d0f15',
-          card: '#11131a',
+          DEFAULT: '#050b14',
+          soft: '#08111f',
+          card: '#0b1626',
         },
         accent: {
-          DEFAULT: '#c6ff3d',
-          soft: '#dcff8a',
-          dim: '#6f8f1f',
+          DEFAULT: '#00ff9c',
+          soft: '#6bffc4',
+          dim: '#00a866',
         },
-        violet: {
-          DEFAULT: '#9d8cff',
-          soft: '#c4b9ff',
+        cyan: {
+          DEFAULT: '#22d3ee',
+          soft: '#67e8f9',
         },
-        line: '#23262f',
+        line: '#16243a',
         ink: {
-          DEFAULT: '#ededf0',
-          muted: '#a3a6b0',
-          faint: '#6c6f7b',
+          DEFAULT: '#e6edf5',
+          muted: '#93a4b8',
+          faint: '#5b6b80',
         },
       },
       fontFamily: {
-        display: ['Syne', 'Inter', 'system-ui', 'sans-serif'],
+        display: ['Space Grotesk', 'Inter', 'system-ui', 'sans-serif'],
         sans: ['Inter', 'system-ui', 'sans-serif'],
         mono: ['JetBrains Mono', 'ui-monospace', 'monospace'],
       },

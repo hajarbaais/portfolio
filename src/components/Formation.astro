@@ -26,16 +26,16 @@ const items = [
 
   <ol class="grid md:grid-cols-3 gap-px bg-line border border-line rounded-3xl overflow-hidden">
     {items.map((item, i) => (
-      <li class="reveal group relative bg-bg p-8 md:p-10 min-h-[260px] flex flex-col justify-between overflow-hidden" style={`--i: ${i}`}>
-        <span class="absolute -right-4 -bottom-10 font-display font-extrabold text-[9rem] leading-none text-white/[0.03] group-hover:text-accent/10 transition-colors duration-500 select-none" aria-hidden="true">
+      <li class="reveal group relative bg-bg p-8 md:p-10 min-h-[220px] flex flex-col justify-between overflow-hidden" style={`--i: ${i}`}>
+        <span class="absolute -right-4 -bottom-6 font-display font-extrabold text-[6rem] leading-none text-white/[0.03] group-hover:text-accent/10 transition-colors duration-500 select-none" aria-hidden="true">
           0{i + 1}
         </span>
         <div class="flex items-center gap-3">
-          <span class={`w-2.5 h-2.5 rounded-full ${i === 0 ? 'bg-accent shadow-[0_0_0_6px_rgba(198,255,61,0.15)]' : 'border border-ink-faint'}`}></span>
+          <span class={`w-2.5 h-2.5 rounded-full ${i === 0 ? 'bg-accent shadow-[0_0_0_6px_rgba(0,255,156,0.15)]' : 'border border-ink-faint'}`}></span>
           <span class="font-mono text-xs text-accent">{item.period}</span>
         </div>
         <div class="relative">
-          <h3 class="font-display text-2xl font-semibold text-white leading-tight mb-2">{item.title}</h3>
+          <h3 class="font-display text-xl font-semibold text-white leading-tight mb-2">{item.title}</h3>
           {item.place && <p class="text-ink-muted">{item.place}</p>}
         </div>
         <span class="absolute left-0 bottom-0 h-0.5 w-full bg-accent origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></span>

@@ -31,7 +31,7 @@ const experiences = [
 
   <div id="timeline" class="relative">
     <div class="absolute left-[7px] md:left-[calc(220px+7px)] top-2 bottom-2 w-px bg-line" aria-hidden="true">
-      <div id="timeline-fill" class="absolute inset-x-0 top-0 h-full bg-gradient-to-b from-accent to-violet origin-top" style="transform: scaleY(0)"></div>
+      <div id="timeline-fill" class="absolute inset-x-0 top-0 h-full bg-gradient-to-b from-accent to-cyan origin-top" style="transform: scaleY(0)"></div>
     </div>
 
     <div class="space-y-16 md:space-y-24">
@@ -43,7 +43,7 @@ const experiences = [
           </div>
           <span class="absolute left-0 md:left-[220px] top-1.5 w-[15px] h-[15px] rounded-full border-2 border-accent bg-bg" aria-hidden="true"></span>
           <div class="md:pl-14">
-            <h3 class="font-display text-2xl md:text-3xl font-semibold text-white leading-tight mb-6">{exp.role}</h3>
+            <h3 class="font-display text-xl md:text-2xl font-semibold text-white leading-tight mb-6">{exp.role}</h3>
             <ul class="space-y-4">
               {exp.points.map((p) => (
                 <li class="flex gap-4 text-ink-muted leading-relaxed">

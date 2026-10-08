@@ -21,7 +21,7 @@ const marquee = [
 ---
 <section id="hero" class="relative min-h-[100svh] flex flex-col overflow-hidden">
   <canvas id="field" class="absolute inset-0 w-full h-full" aria-hidden="true"></canvas>
-  <div class="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_at_center,transparent_30%,#08090d_78%)]"></div>
+  <div class="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_at_center,transparent_30%,#050b14_78%)]"></div>
 
   <div class="relative flex-1 flex items-center">
     <div class="container-x w-full min-w-0 pt-32 pb-16">
@@ -33,17 +33,17 @@ const marquee = [
         Ouverte aux opportunités de stage
       </p>
 
-      <h1 class="font-display font-extrabold leading-[0.88] tracking-tight text-[min(15vw,11.5rem)] text-white" aria-label="Hajar Baais">
+      <h1 class="font-display font-extrabold leading-[0.9] tracking-tight text-[min(14vw,7.5rem)] text-white" aria-label="Hajar Baais">
         <span class="block" data-scramble aria-hidden="true">HAJAR</span>
         <span class="block outline-text" data-scramble aria-hidden="true">BAAIS</span>
       </h1>
 
       <div class="mt-10 grid md:grid-cols-[1fr_auto] gap-10 items-end">
         <div class="hero-in" style="--d: 3">
-          <p class="font-mono text-lg md:text-xl text-accent mb-5">
+          <p class="font-mono text-base md:text-lg text-accent mb-5">
             <span class="text-ink-faint">&gt;</span> <span id="typed">Pentest Web</span><span class="animate-blink">_</span>
           </p>
-          <p class="text-ink-muted text-lg max-w-xl leading-relaxed">
+          <p class="text-ink-muted text-base md:text-lg max-w-xl leading-relaxed">
             Élève ingénieure en cybersécurité à l'ENSA Agadir. Je conçois des outils de sécurité
             offensive et défensive : audit d'applications web et d'API, chiffrement et intégrité
             des données, détection de menaces. J'aime comprendre comment les systèmes cassent
@@ -73,12 +73,12 @@ const marquee = [
     </div>
   </div>
 
-  <div class="relative border-y border-line bg-bg/60 backdrop-blur-sm py-5 overflow-hidden marquee-mask">
+  <div class="relative border-y border-line bg-bg/60 backdrop-blur-sm py-4 overflow-hidden marquee-mask">
     <div class="flex w-max animate-marquee hover:[animation-play-state:paused]">
       {[0, 1].map((copy) => (
         <ul class="flex shrink-0 items-center" aria-hidden={copy === 1 ? 'true' : undefined}>
           {marquee.map((m) => (
-            <li class="flex items-center font-display font-semibold text-2xl md:text-3xl text-ink-muted whitespace-nowrap">
+            <li class="flex items-center font-display font-medium text-base md:text-lg text-ink-muted whitespace-nowrap">
               <span class="px-8">{m}</span>
               <svg class="w-3 h-3 text-accent" viewBox="0 0 10 10" aria-hidden="true"><path d="M5 0 6.2 3.8 10 5 6.2 6.2 5 10 3.8 6.2 0 5 3.8 3.8Z" fill="currentColor" /></svg>
             </li>
@@ -174,7 +174,7 @@ const marquee = [
           const py = y + wave * 4 + (dist > 0 ? (dy / dist) * pull * 18 : 0);
           const r = 0.8 + (wave + 1) * 0.35 + pull * 1.6;
           ctx.fillStyle = pull > 0.02
-            ? `rgba(198, 255, 61, ${0.25 + pull * 0.75})`
+            ? `rgba(0, 255, 156, ${0.25 + pull * 0.75})`
             : `rgba(237, 237, 240, ${0.08 + (wave + 1) * 0.06})`;
           ctx.beginPath();
           ctx.arc(px, py, r, 0, Math.PI * 2);

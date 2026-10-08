@@ -17,7 +17,7 @@ const links = [
       <span class="sec-line"></span>
     </div>
 
-    <h2 class="reveal font-display font-extrabold tracking-tight leading-[0.9] text-[min(11vw,9rem)] text-white mb-10">
+    <h2 class="reveal font-display font-extrabold tracking-tight leading-[0.9] text-[min(11vw,4.5rem)] text-white mb-10">
       Me <span class="outline-text hover:text-accent hover:[-webkit-text-stroke:0] transition-colors duration-500">contacter</span><span class="text-accent">.</span>
     </h2>
 
@@ -33,10 +33,10 @@ const links = [
             href={l.href}
             target={l.href.startsWith('http') ? '_blank' : undefined}
             rel="noopener"
-            class="group flex flex-wrap items-center gap-x-8 gap-y-2 py-7 md:py-9 border-b border-line"
+            class="group flex flex-wrap items-center gap-x-8 gap-y-2 py-6 border-b border-line"
           >
             <span class="font-mono text-xs uppercase tracking-[0.2em] text-ink-faint w-full sm:w-28">{l.label}</span>
-            <span class="flex-1 min-w-0 font-display text-xl sm:text-3xl md:text-5xl font-semibold text-white group-hover:text-accent group-hover:translate-x-3 transition-all duration-500 break-words">
+            <span class="flex-1 min-w-0 font-display text-lg sm:text-xl md:text-2xl font-medium text-white group-hover:text-accent group-hover:translate-x-3 transition-all duration-500 break-words">
               {l.value}
             </span>
             <span class="w-12 h-12 md:w-14 md:h-14 grid place-items-center rounded-full border border-line text-white text-xl group-hover:bg-accent group-hover:border-accent group-hover:text-bg group-hover:rotate-45 transition-all duration-500">
