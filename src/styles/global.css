@@ -1,69 +1,161 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&family=Syne:wght@600;700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+@property --angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;
-    scroll-padding-top: 5rem;
+    scroll-padding-top: 6rem;
   }
   body {
-    @apply bg-bg text-ink font-sans antialiased;
-    background-image:
-      radial-gradient(circle at 20% 0%, rgba(34, 211, 238, 0.06), transparent 40%),
-      radial-gradient(circle at 80% 100%, rgba(34, 211, 238, 0.04), transparent 40%);
+    @apply bg-bg text-ink font-sans antialiased overflow-x-hidden;
   }
   ::selection {
-    @apply bg-accent/30 text-white;
+    @apply bg-accent text-bg;
+  }
+  :focus-visible {
+    @apply outline outline-2 outline-offset-4 outline-accent rounded-sm;
   }
 }
 
 @layer components {
+  .container-x {
+    @apply max-w-6xl mx-auto px-6 md:px-10;
+  }
   .section {
-    @apply max-w-5xl mx-auto px-6 py-20 md:py-28;
+    @apply container-x py-24 md:py-36;
   }
-  .section-title {
-    @apply font-mono text-sm uppercase tracking-widest text-accent mb-3;
+
+  /* En-tête de section : numéro + titre + ligne qui se dessine */
+  .sec-head {
+    @apply flex items-end gap-5 mb-14 md:mb-20;
   }
-  .section-heading {
-    @apply text-3xl md:text-4xl font-semibold text-white mb-12;
+  .sec-num {
+    @apply font-mono text-sm text-accent pb-2 md:pb-3;
   }
-  .card {
-    @apply bg-bg-card border border-line rounded-lg p-6 transition-all duration-300 hover:border-accent/50 hover:-translate-y-1;
+  .sec-title {
+    @apply font-display font-bold text-4xl md:text-6xl text-white leading-none tracking-tight;
+  }
+  .sec-line {
+    @apply hidden sm:block flex-1 h-px bg-line mb-3 origin-left;
+    transform: scaleX(0);
+    transition: transform 1.2s cubic-bezier(0.2, 0.7, 0.2, 1) 0.2s;
+  }
+  .in-view .sec-line {
+    transform: scaleX(1);
+  }
+
+  .kicker {
+    @apply font-mono text-xs uppercase tracking-[0.2em] text-ink-faint;
   }
   .tag {
-    @apply inline-block font-mono text-xs px-2 py-1 rounded border border-line text-ink-muted;
+    @apply inline-block font-mono text-xs px-2.5 py-1 rounded-full border border-line text-ink-muted transition-colors duration-200;
+  }
+  .tag:hover {
+    @apply border-accent/60 text-accent;
   }
   .link {
     @apply text-ink-muted hover:text-accent transition-colors duration-200;
   }
+
+  /* Carte avec halo qui suit le curseur */
+  .spot {
+    @apply relative bg-bg-card border border-line rounded-2xl overflow-hidden transition-[border-color,transform] duration-300;
+    --x: 50%;
+    --y: 50%;
+  }
+  .spot::before {
+    content: '';
+    @apply absolute inset-0 pointer-events-none opacity-0 transition-opacity duration-300;
+    background: radial-gradient(420px circle at var(--x) var(--y), rgba(198, 255, 61, 0.09), transparent 45%);
+  }
+  .spot:hover {
+    @apply border-white/15;
+  }
+  .spot:hover::before {
+    @apply opacity-100;
+  }
+
+  /* Bordure en dégradé animée pour les projets vedettes */
+  .glow-border {
+    @apply relative rounded-3xl p-px;
+    background: conic-gradient(from var(--angle), #23262f 0%, #c6ff3d 12%, #9d8cff 24%, #23262f 36%, #23262f 100%);
+    animation: rotate-angle 6s linear infinite;
+  }
+
+  .btn {
+    @apply inline-flex items-center gap-3 px-6 py-3.5 rounded-full font-medium text-sm transition-all duration-300;
+  }
+  .btn-primary {
+    @apply btn bg-accent text-bg hover:bg-white;
+  }
+  .btn-ghost {
+    @apply btn border border-line text-ink hover:border-accent hover:text-accent;
+  }
+
+  .outline-text {
+    color: transparent;
+    -webkit-text-stroke: 1.5px rgba(237, 237, 240, 0.85);
+  }
 }
 
-.reveal {
+@keyframes rotate-angle {
+  to {
+    --angle: 360deg;
+  }
+}
+
+/* Apparition au défilement, avec décalage par enfant */
+.js .reveal {
   opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  transform: translateY(32px);
+  transition: opacity 0.9s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
+  transition-delay: calc(var(--i, 0) * 90ms);
 }
-.reveal.visible {
+.js .reveal.in-view {
   opacity: 1;
-  transform: translateY(0);
+  transform: none;
 }
 
-.nav-scrolled {
-  background: rgba(10, 14, 23, 0.85);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid #1e293b;
+/* Grain discret par-dessus toute la page */
+.grain {
+  position: fixed;
+  inset: -50%;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.marquee-mask {
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
 }
 
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
   }
-  .reveal {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    transition-delay: 0s !important;
+  }
+  .js .reveal {
     opacity: 1;
     transform: none;
-    transition: none;
+  }
+  .sec-line {
+    transform: scaleX(1);
   }
 }

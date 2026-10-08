@@ -5,38 +5,51 @@ export default {
     extend: {
       colors: {
         bg: {
-          DEFAULT: '#0a0e17',
-          soft: '#0f1520',
-          card: '#131a27',
+          DEFAULT: '#08090d',
+          soft: '#0d0f15',
+          card: '#11131a',
         },
         accent: {
-          DEFAULT: '#22d3ee',
-          soft: '#67e8f9',
-          dim: '#0e7490',
+          DEFAULT: '#c6ff3d',
+          soft: '#dcff8a',
+          dim: '#6f8f1f',
         },
-        line: '#1e293b',
+        violet: {
+          DEFAULT: '#9d8cff',
+          soft: '#c4b9ff',
+        },
+        line: '#23262f',
         ink: {
-          DEFAULT: '#e2e8f0',
-          muted: '#94a3b8',
-          faint: '#64748b',
+          DEFAULT: '#ededf0',
+          muted: '#a3a6b0',
+          faint: '#6c6f7b',
         },
       },
       fontFamily: {
+        display: ['Syne', 'Inter', 'system-ui', 'sans-serif'],
         sans: ['Inter', 'system-ui', 'sans-serif'],
         mono: ['JetBrains Mono', 'ui-monospace', 'monospace'],
       },
       animation: {
-        'fade-up': 'fadeUp 0.6s ease-out forwards',
         blink: 'blink 1s step-end infinite',
+        marquee: 'marquee 40s linear infinite',
+        'spin-slow': 'spin 24s linear infinite',
+        'scroll-hint': 'scrollHint 2.2s ease-in-out infinite',
       },
       keyframes: {
-        fadeUp: {
-          '0%': { opacity: '0', transform: 'translateY(20px)' },
-          '100%': { opacity: '1', transform: 'translateY(0)' },
-        },
         blink: {
           '0%, 100%': { opacity: '1' },
           '50%': { opacity: '0' },
+        },
+        marquee: {
+          '0%': { transform: 'translateX(0)' },
+          '100%': { transform: 'translateX(-50%)' },
+        },
+        scrollHint: {
+          '0%': { transform: 'scaleY(0)', transformOrigin: 'top' },
+          '45%': { transform: 'scaleY(1)', transformOrigin: 'top' },
+          '55%': { transform: 'scaleY(1)', transformOrigin: 'bottom' },
+          '100%': { transform: 'scaleY(0)', transformOrigin: 'bottom' },
         },
       },
     },

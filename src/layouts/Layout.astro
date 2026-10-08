@@ -29,7 +29,7 @@ const person = {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#0a0e17" />
+    <meta name="theme-color" content="#08090d" />
     <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
     <link rel="canonical" href={canonical} />
     <title>{title}</title>
@@ -42,19 +42,44 @@ const person = {
     <meta property="og:locale" content="fr_FR" />
     <meta name="twitter:card" content="summary" />
     <script type="application/ld+json" set:html={JSON.stringify(person)} />
+    <script is:inline>document.documentElement.classList.add('js');</script>
   </head>
   <body id="top">
+    <div id="progress" class="fixed top-0 left-0 h-[2px] w-full bg-accent origin-left z-[70]" style="transform: scaleX(0)"></div>
+    <div class="grain" aria-hidden="true"></div>
     <slot />
     <script>
+      // Apparition des éléments et des en-têtes de section au défilement
       const observer = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
-            if (entry.isIntersecting) entry.target.classList.add('visible');
+            if (entry.isIntersecting) {
+              entry.target.classList.add('in-view');
+              observer.unobserve(entry.target);
+            }
           });
         },
-        { threshold: 0.1 }
+        { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
       );
-      document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+      document.querySelectorAll('.reveal, .sec-head').forEach((el) => observer.observe(el));
+
+      // Barre de progression de lecture
+      const progress = document.getElementById('progress');
+      const onScroll = () => {
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        if (progress) progress.style.transform = `scaleX(${max > 0 ? window.scrollY / max : 0})`;
+      };
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+
+      // Halo lumineux qui suit le curseur sur les cartes
+      document.addEventListener('pointermove', (e) => {
+        const card = (e.target as HTMLElement).closest?.('.spot') as HTMLElement | null;
+        if (!card) return;
+        const r = card.getBoundingClientRect();
+        card.style.setProperty('--x', `${e.clientX - r.left}px`);
+        card.style.setProperty('--y', `${e.clientY - r.top}px`);
+      });
     </script>
   </body>
 </html>

@@ -1,57 +1,105 @@
 ---
 const links = [
   { label: 'Profil', href: '#about' },
+  { label: 'Parcours', href: '#formation' },
   { label: 'Expérience', href: '#experience' },
   { label: 'Compétences', href: '#skills' },
   { label: 'Projets', href: '#projects' },
-  { label: 'Certifications', href: '#certifications' },
   { label: 'Contact', href: '#contact' },
 ];
 ---
-<header id="nav" class="fixed top-0 inset-x-0 z-50 transition-colors duration-300">
-  <nav class="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
-    <a href="#top" class="font-mono text-accent font-semibold tracking-wider">
-      hajar<span class="text-ink-muted">.baais</span>
+<header class="fixed top-4 inset-x-0 z-50 px-4 pointer-events-none">
+  <nav
+    id="nav"
+    class="pointer-events-auto mx-auto max-w-fit flex items-center gap-2 rounded-full border border-white/10 bg-bg/70 backdrop-blur-xl pl-5 pr-2 py-2 transition-all duration-500"
+  >
+    <a href="#top" class="font-display font-bold text-white mr-3 tracking-tight" aria-label="Retour en haut">
+      HB<span class="text-accent">.</span>
     </a>
-    <ul class="hidden md:flex items-center gap-7 text-sm">
+    <ul class="hidden lg:flex items-center gap-1 text-sm">
       {links.map((l) => (
-        <li><a href={l.href} class="link">{l.label}</a></li>
+        <li>
+          <a href={l.href} data-nav class="block px-3.5 py-1.5 rounded-full text-ink-muted hover:text-white transition-colors">
+            {l.label}
+          </a>
+        </li>
       ))}
     </ul>
-    <button id="nav-toggle" class="md:hidden text-ink p-2" aria-label="Ouvrir le menu" aria-expanded="false">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M4 7h16M4 12h16M4 17h16" />
-      </svg>
+    <a href="#contact" class="hidden sm:inline-flex lg:hidden items-center px-4 py-1.5 rounded-full bg-accent text-bg text-sm font-medium">
+      Contact
+    </a>
+    <button
+      id="nav-toggle"
+      class="lg:hidden w-9 h-9 grid place-items-center rounded-full text-ink hover:bg-white/5"
+      aria-label="Ouvrir le menu"
+      aria-expanded="false"
+      aria-controls="nav-menu"
+    >
+      <span class="relative block w-4 h-3">
+        <span class="bar absolute left-0 top-0 w-4 h-px bg-current transition-transform duration-300"></span>
+        <span class="bar absolute left-0 bottom-0 w-4 h-px bg-current transition-transform duration-300"></span>
+      </span>
     </button>
   </nav>
-  <ul id="nav-menu" class="hidden md:hidden flex-col gap-1 px-6 pb-4 bg-bg/95 backdrop-blur border-b border-line">
-    {links.map((l) => (
-      <li><a href={l.href} class="link block py-2">{l.label}</a></li>
-    ))}
-  </ul>
+
+  <div
+    id="nav-menu"
+    class="pointer-events-auto lg:hidden mx-auto mt-3 max-w-sm rounded-3xl border border-white/10 bg-bg/90 backdrop-blur-xl p-3 origin-top transition-all duration-300 opacity-0 scale-95 invisible"
+  >
+    <ul>
+      {links.map((l, i) => (
+        <li>
+          <a href={l.href} class="flex items-baseline gap-4 px-4 py-3 rounded-2xl hover:bg-white/5 group">
+            <span class="font-mono text-xs text-ink-faint">0{i + 1}</span>
+            <span class="font-display text-2xl font-semibold text-white group-hover:text-accent transition-colors">{l.label}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
 </header>
 
+<style>
+  [data-nav].active {
+    background: rgba(198, 255, 61, 0.12);
+    color: #c6ff3d;
+  }
+  #nav-toggle[aria-expanded='true'] .bar:first-child {
+    transform: translateY(5.5px) rotate(45deg);
+  }
+  #nav-toggle[aria-expanded='true'] .bar:last-child {
+    transform: translateY(-5.5px) rotate(-45deg);
+  }
+  #nav-menu.open {
+    opacity: 1;
+    transform: scale(1);
+    visibility: visible;
+  }
+</style>
+
 <script>
-  const nav = document.getElementById('nav');
   const toggle = document.getElementById('nav-toggle');
   const menu = document.getElementById('nav-menu');
 
-  const onScroll = () => {
-    nav?.classList.toggle('nav-scrolled', window.scrollY > 20);
+  const setOpen = (open: boolean) => {
+    menu?.classList.toggle('open', open);
+    toggle?.setAttribute('aria-expanded', String(open));
   };
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
+  toggle?.addEventListener('click', () => setOpen(!menu?.classList.contains('open')));
+  menu?.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setOpen(false)));
+  document.addEventListener('keydown', (e) => e.key === 'Escape' && setOpen(false));
 
-  toggle?.addEventListener('click', () => {
-    const open = menu?.classList.toggle('hidden') === false;
-    menu?.classList.toggle('flex', open);
-    toggle.setAttribute('aria-expanded', String(open));
-  });
-  menu?.querySelectorAll('a').forEach((a) =>
-    a.addEventListener('click', () => {
-      menu.classList.add('hidden');
-      menu.classList.remove('flex');
-      toggle?.setAttribute('aria-expanded', 'false');
-    })
+  // Met en évidence la section visible dans la barre de navigation
+  const navLinks = document.querySelectorAll<HTMLAnchorElement>('[data-nav]');
+  const sections = document.querySelectorAll('main section[id]');
+  const spy = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        navLinks.forEach((a) => a.classList.toggle('active', a.getAttribute('href') === `#${entry.target.id}`));
+      });
+    },
+    { rootMargin: '-45% 0px -50% 0px' }
   );
+  sections.forEach((s) => spy.observe(s));
 </script>

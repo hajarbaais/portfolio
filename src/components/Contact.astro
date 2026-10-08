@@ -1,30 +1,60 @@
 ---
+import Arrow from './Arrow.astro';
+
 const links = [
   { label: 'Email', value: 'baaishajar20@gmail.com', href: 'mailto:baaishajar20@gmail.com' },
   { label: 'Téléphone', value: '+212 7 62 60 95 75', href: 'tel:+212762609575' },
   { label: 'LinkedIn', value: 'linkedin.com/in/baaishajar', href: 'https://www.linkedin.com/in/baaishajar' },
 ];
 ---
-<section id="contact" class="section reveal">
-  <p class="section-title">08 — Contact</p>
-  <h2 class="section-heading">Me contacter</h2>
-  <p class="text-ink-muted max-w-2xl mb-10 leading-relaxed">
-    Ouverte aux opportunités de stage, aux collaborations sur des projets de sécurité
-    et aux échanges autour de la cybersécurité.
-  </p>
-  <div class="grid sm:grid-cols-3 gap-4">
-    {links.map((l) => (
-      <a href={l.href} target={l.href.startsWith('http') ? '_blank' : undefined} rel="noopener" class="card group">
-        <p class="font-mono text-xs text-accent mb-2">{l.label}</p>
-        <p class="text-white text-sm group-hover:text-accent transition-colors break-all">{l.value}</p>
-      </a>
-    ))}
-  </div>
-</section>
+<section id="contact" class="relative overflow-hidden border-t border-line">
+  <div class="absolute -top-40 left-1/2 -translate-x-1/2 w-[900px] h-[500px] rounded-full bg-accent/10 blur-[140px] pointer-events-none" aria-hidden="true"></div>
 
-<footer class="border-t border-line mt-20">
-  <div class="max-w-5xl mx-auto px-6 py-8 flex flex-wrap justify-between items-center gap-4">
-    <p class="font-mono text-xs text-ink-faint">© {new Date().getFullYear()} Hajar BAAIS</p>
-    <a href="#top" class="font-mono text-xs text-ink-faint hover:text-accent transition-colors">Retour en haut ↑</a>
+  <div class="section relative">
+    <div class="sec-head">
+      <span class="sec-num">08</span>
+      <span class="kicker pb-2">Contact</span>
+      <span class="sec-line"></span>
+    </div>
+
+    <h2 class="reveal font-display font-extrabold tracking-tight leading-[0.9] text-[min(11vw,9rem)] text-white mb-10">
+      Me <span class="outline-text hover:text-accent hover:[-webkit-text-stroke:0] transition-colors duration-500">contacter</span><span class="text-accent">.</span>
+    </h2>
+
+    <p class="reveal text-ink-muted text-lg max-w-2xl mb-16 leading-relaxed" style="--i: 1">
+      Ouverte aux opportunités de stage, aux collaborations sur des projets de sécurité
+      et aux échanges autour de la cybersécurité.
+    </p>
+
+    <ul class="border-t border-line">
+      {links.map((l, i) => (
+        <li class="reveal" style={`--i: ${i}`}>
+          <a
+            href={l.href}
+            target={l.href.startsWith('http') ? '_blank' : undefined}
+            rel="noopener"
+            class="group flex flex-wrap items-center gap-x-8 gap-y-2 py-7 md:py-9 border-b border-line"
+          >
+            <span class="font-mono text-xs uppercase tracking-[0.2em] text-ink-faint w-full sm:w-28">{l.label}</span>
+            <span class="flex-1 min-w-0 font-display text-xl sm:text-3xl md:text-5xl font-semibold text-white group-hover:text-accent group-hover:translate-x-3 transition-all duration-500 break-words">
+              {l.value}
+            </span>
+            <span class="w-12 h-12 md:w-14 md:h-14 grid place-items-center rounded-full border border-line text-white text-xl group-hover:bg-accent group-hover:border-accent group-hover:text-bg group-hover:rotate-45 transition-all duration-500">
+              <Arrow />
+            </span>
+          </a>
+        </li>
+      ))}
+    </ul>
   </div>
-</footer>
+
+  <footer class="relative border-t border-line">
+    <div class="container-x py-8 flex flex-wrap justify-between items-center gap-4">
+      <p class="font-mono text-xs text-ink-faint">© {new Date().getFullYear()} Hajar BAAIS</p>
+      <a href="#top" class="group inline-flex items-center gap-2 font-mono text-xs text-ink-faint hover:text-accent transition-colors">
+        Retour en haut
+        <Arrow dir="up" class="transition-transform group-hover:-translate-y-0.5" />
+      </a>
+    </div>
+  </footer>
+</section>

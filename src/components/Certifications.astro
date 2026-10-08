@@ -8,14 +8,28 @@ const certs = [
   'Formation droit numérique et protection des données — CNDP',
 ];
 ---
-<section id="certifications" class="section reveal">
-  <p class="section-title">06 — Certifications</p>
-  <h2 class="section-heading">Certifications & Formations</h2>
-  <ul class="grid sm:grid-cols-2 gap-3">
-    {certs.map((c) => (
-      <li class="flex items-start gap-3 text-ink-muted">
-        <span class="text-accent mt-1">◆</span>
-        <span>{c}</span>
+<section id="certifications" class="section">
+  <div class="sec-head">
+    <span class="sec-num">06</span>
+    <h2 class="sec-title">Certifications</h2>
+    <span class="sec-line"></span>
+  </div>
+
+  <p class="kicker -mt-8 mb-10">Certifications & formations</p>
+
+  <ul class="border-t border-line">
+    {certs.map((c, i) => (
+      <li class="reveal group relative border-b border-line overflow-hidden" style={`--i: ${i}`}>
+        <span class="absolute inset-0 bg-accent origin-bottom scale-y-0 group-hover:scale-y-100 transition-transform duration-500 ease-[cubic-bezier(0.2,0.7,0.2,1)]" aria-hidden="true"></span>
+        <div class="relative flex items-center gap-6 md:gap-10 py-6 md:py-7 px-2 md:px-4">
+          <span class="font-mono text-sm text-ink-faint group-hover:text-bg transition-colors w-8">0{i + 1}</span>
+          <span class="flex-1 font-display text-xl md:text-3xl font-semibold text-white group-hover:text-bg group-hover:translate-x-2 transition-all duration-300">
+            {c}
+          </span>
+          <svg class="hidden sm:block w-6 h-6 text-ink-faint group-hover:text-bg group-hover:rotate-90 transition-all duration-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+            <path d="M12 4v16M4 12h16" />
+          </svg>
+        </div>
       </li>
     ))}
   </ul>

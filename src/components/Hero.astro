@@ -1,63 +1,203 @@
 ---
+import Arrow from './Arrow.astro';
+
 const socials = [
   { label: 'GitHub', href: 'https://github.com/hajarbaais' },
   { label: 'LinkedIn', href: 'https://www.linkedin.com/in/baaishajar' },
   { label: 'pwn.college', href: 'https://pwn.college/hacker/147257' },
   { label: 'Email', href: 'mailto:baaishajar20@gmail.com' },
 ];
+
+const marquee = [
+  'Pentest Web',
+  'Sécurité des API',
+  'Sécurité Applicative',
+  'Détection de Menaces',
+  'SIEM / SOC',
+  'Cryptographie',
+  'MITRE ATT&CK',
+  'Sécurité des LLM',
+];
 ---
-<section class="min-h-screen flex items-center justify-center px-6 pt-24 pb-16 relative">
-  <div class="max-w-4xl w-full">
-    <p class="inline-flex items-center gap-2 font-mono text-xs text-accent border border-accent/30 bg-accent/5 rounded-full px-3 py-1 mb-6">
-      <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-      Ouverte aux opportunités de stage
-    </p>
-    <h1 class="text-4xl md:text-6xl font-semibold text-white leading-tight mb-6">
-      Hajar BAAIS
-      <span class="block text-ink-muted text-2xl md:text-3xl mt-2 font-mono">
-        <span id="typed">Pentest Web</span><span class="text-accent animate-blink">_</span>
-      </span>
-    </h1>
-    <p class="text-ink-muted text-lg max-w-2xl mb-10 leading-relaxed">
-      Élève ingénieure en cybersécurité à l'ENSA Agadir. Je conçois des outils de sécurité
-      offensive et défensive : audit d'applications web et d'API, chiffrement et intégrité
-      des données, détection de menaces. J'aime comprendre comment les systèmes cassent
-      pour mieux les défendre.
-    </p>
-    <div class="flex flex-wrap gap-4 mb-8">
-      <a href="#projects" class="px-6 py-3 bg-accent text-bg font-medium rounded hover:bg-accent-soft transition-colors">
-        Voir mes projets
-      </a>
-      <a href="#contact" class="px-6 py-3 border border-line text-ink rounded hover:border-accent hover:text-accent transition-colors">
-        Me contacter
-      </a>
+<section id="hero" class="relative min-h-[100svh] flex flex-col overflow-hidden">
+  <canvas id="field" class="absolute inset-0 w-full h-full" aria-hidden="true"></canvas>
+  <div class="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_at_center,transparent_30%,#08090d_78%)]"></div>
+
+  <div class="relative flex-1 flex items-center">
+    <div class="container-x w-full min-w-0 pt-32 pb-16">
+      <p class="hero-in inline-flex items-center gap-2.5 font-mono text-xs text-ink-muted border border-white/10 bg-white/[0.03] rounded-full pl-2.5 pr-3.5 py-1.5 mb-10" style="--d: 0">
+        <span class="relative flex w-2 h-2">
+          <span class="absolute inset-0 rounded-full bg-accent animate-ping opacity-70"></span>
+          <span class="relative w-2 h-2 rounded-full bg-accent"></span>
+        </span>
+        Ouverte aux opportunités de stage
+      </p>
+
+      <h1 class="font-display font-extrabold leading-[0.88] tracking-tight text-[min(15vw,11.5rem)] text-white" aria-label="Hajar Baais">
+        <span class="block" data-scramble aria-hidden="true">HAJAR</span>
+        <span class="block outline-text" data-scramble aria-hidden="true">BAAIS</span>
+      </h1>
+
+      <div class="mt-10 grid md:grid-cols-[1fr_auto] gap-10 items-end">
+        <div class="hero-in" style="--d: 3">
+          <p class="font-mono text-lg md:text-xl text-accent mb-5">
+            <span class="text-ink-faint">&gt;</span> <span id="typed">Pentest Web</span><span class="animate-blink">_</span>
+          </p>
+          <p class="text-ink-muted text-lg max-w-xl leading-relaxed">
+            Élève ingénieure en cybersécurité à l'ENSA Agadir. Je conçois des outils de sécurité
+            offensive et défensive : audit d'applications web et d'API, chiffrement et intégrité
+            des données, détection de menaces. J'aime comprendre comment les systèmes cassent
+            pour mieux les défendre.
+          </p>
+        </div>
+        <div class="hero-in flex flex-col gap-6 md:items-end" style="--d: 4">
+          <div class="flex flex-wrap gap-3">
+            <a href="#projects" class="btn-primary group">
+              Voir mes projets
+              <Arrow dir="down" class="transition-transform group-hover:translate-y-0.5" />
+            </a>
+            <a href="#contact" class="btn-ghost">Me contacter</a>
+          </div>
+          <ul class="flex flex-wrap gap-x-5 gap-y-2 font-mono text-xs uppercase tracking-wider">
+            {socials.map((s) => (
+              <li>
+                <a href={s.href} target={s.href.startsWith('http') ? '_blank' : undefined} rel="noopener" class="link inline-flex items-center gap-1 group">
+                  {s.label}
+                  <Arrow class="text-[0.85em] transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
     </div>
-    <ul class="flex flex-wrap gap-x-6 gap-y-2 font-mono text-sm">
-      {socials.map((s) => (
-        <li>
-          <a href={s.href} target="_blank" rel="noopener" class="link">
-            <span class="text-accent">↗</span> {s.label}
-          </a>
-        </li>
+  </div>
+
+  <div class="relative border-y border-line bg-bg/60 backdrop-blur-sm py-5 overflow-hidden marquee-mask">
+    <div class="flex w-max animate-marquee hover:[animation-play-state:paused]">
+      {[0, 1].map((copy) => (
+        <ul class="flex shrink-0 items-center" aria-hidden={copy === 1 ? 'true' : undefined}>
+          {marquee.map((m) => (
+            <li class="flex items-center font-display font-semibold text-2xl md:text-3xl text-ink-muted whitespace-nowrap">
+              <span class="px-8">{m}</span>
+              <svg class="w-3 h-3 text-accent" viewBox="0 0 10 10" aria-hidden="true"><path d="M5 0 6.2 3.8 10 5 6.2 6.2 5 10 3.8 6.2 0 5 3.8 3.8Z" fill="currentColor" /></svg>
+            </li>
+          ))}
+        </ul>
       ))}
-    </ul>
+    </div>
   </div>
 </section>
 
-<script>
-  const words = ['Pentest Web', 'Sécurité des API', 'Sécurité Applicative', 'Détection de Menaces', 'Cryptographie'];
-  const el = document.getElementById('typed');
-  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  let i = 0, j = 0, current = '', deleting = false;
-  function tick() {
-    if (!el) return;
-    const word = words[i];
-    current = deleting ? word.substring(0, j--) : word.substring(0, j++);
-    el.textContent = current;
-    let speed = deleting ? 50 : 100;
-    if (!deleting && current === word) { speed = 1500; deleting = true; }
-    else if (deleting && current === '') { deleting = false; i = (i + 1) % words.length; speed = 300; }
-    setTimeout(tick, speed);
+<style>
+  .js .hero-in {
+    opacity: 0;
+    transform: translateY(18px);
+    animation: hero-in 1s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+    animation-delay: calc(var(--d) * 140ms + 200ms);
   }
-  if (!reduced) tick();
+  @keyframes hero-in {
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+</style>
+
+<script>
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Effet de déchiffrement du nom
+  const glyphs = '!<>-_\\/[]{}=+*^?#01ABCDEFX';
+  document.querySelectorAll<HTMLElement>('[data-scramble]').forEach((el, idx) => {
+    const target = el.textContent ?? '';
+    if (reduced) return;
+    let frame = 0;
+    const start = idx * 12;
+    const run = () => {
+      const done = Math.max(0, Math.floor((frame - start) / 3));
+      el.textContent = target
+        .split('')
+        .map((c, k) => (k < done ? c : glyphs[Math.floor(Math.random() * glyphs.length)]))
+        .join('');
+      frame++;
+      if (done < target.length) requestAnimationFrame(run);
+      else el.textContent = target;
+    };
+    run();
+  });
+
+  // Rôles qui s'écrivent et s'effacent
+  const words = ['Pentest Web', 'Sécurité des API', 'Sécurité Applicative', 'Détection de Menaces', 'Cryptographie'];
+  const typed = document.getElementById('typed');
+  if (typed && !reduced) {
+    let i = 0, j = words[0].length, deleting = true;
+    const tick = () => {
+      const word = words[i];
+      typed.textContent = word.substring(0, j);
+      let speed = deleting ? 45 : 95;
+      if (deleting) j--; else j++;
+      if (!deleting && j > word.length) { deleting = true; speed = 1600; j = word.length; }
+      else if (deleting && j < 0) { deleting = false; j = 0; i = (i + 1) % words.length; speed = 300; }
+      setTimeout(tick, speed);
+    };
+    setTimeout(tick, 2400);
+  }
+
+  // Champ de points qui ondule et réagit à la souris
+  const canvas = document.getElementById('field') as HTMLCanvasElement | null;
+  const ctx = canvas?.getContext('2d');
+  if (canvas && ctx) {
+    const gap = 30;
+    let w = 0, h = 0, dpr = 1;
+    let mouse = { x: -9999, y: -9999 };
+    let visible = true;
+
+    const resize = () => {
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      w = canvas.clientWidth;
+      h = canvas.clientHeight;
+      canvas.width = w * dpr;
+      canvas.height = h * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    };
+
+    const draw = (t: number) => {
+      ctx.clearRect(0, 0, w, h);
+      for (let x = gap / 2; x < w; x += gap) {
+        for (let y = gap / 2; y < h; y += gap) {
+          const wave = Math.sin(x * 0.012 + t * 0.0009) * Math.cos(y * 0.014 + t * 0.0007);
+          const dx = x - mouse.x, dy = y - mouse.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          const pull = Math.max(0, 1 - dist / 180);
+          const px = x + (dist > 0 ? (dx / dist) * pull * 18 : 0);
+          const py = y + wave * 4 + (dist > 0 ? (dy / dist) * pull * 18 : 0);
+          const r = 0.8 + (wave + 1) * 0.35 + pull * 1.6;
+          ctx.fillStyle = pull > 0.02
+            ? `rgba(198, 255, 61, ${0.25 + pull * 0.75})`
+            : `rgba(237, 237, 240, ${0.08 + (wave + 1) * 0.06})`;
+          ctx.beginPath();
+          ctx.arc(px, py, r, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+    };
+
+    const loop = (t: number) => {
+      if (visible) draw(t);
+      requestAnimationFrame(loop);
+    };
+
+    resize();
+    window.addEventListener('resize', resize);
+    canvas.parentElement?.addEventListener('pointermove', (e) => {
+      const r = canvas.getBoundingClientRect();
+      mouse = { x: e.clientX - r.left, y: e.clientY - r.top };
+    });
+    canvas.parentElement?.addEventListener('pointerleave', () => (mouse = { x: -9999, y: -9999 }));
+    new IntersectionObserver(([e]) => (visible = e.isIntersecting)).observe(canvas);
+
+    if (reduced) draw(0);
+    else requestAnimationFrame(loop);
+  }
 </script>

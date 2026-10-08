@@ -1,4 +1,5 @@
 ---
+import Arrow from './Arrow.astro';
 const gh = (repo: string) => `https://github.com/hajarbaais/${repo}`;
 
 const featured = [
@@ -86,78 +87,101 @@ const projects = [
   },
 ];
 ---
-<section id="projects" class="section reveal">
-  <p class="section-title">05 — Projets</p>
-  <h2 class="section-heading">Projets phares</h2>
+<section id="projects" class="section">
+  <div class="sec-head">
+    <span class="sec-num">05</span>
+    <h2 class="sec-title">Projets phares</h2>
+    <span class="sec-line"></span>
+  </div>
 
-  <div class="space-y-6 mb-6">
-    {featured.map((p) => (
-      <article class="card border-accent/30">
-        <div class="flex flex-wrap justify-between items-start gap-3 mb-2">
-          <div>
-            <p class="font-mono text-xs text-accent mb-1">Projet vedette</p>
-            <h3 class="text-xl font-semibold text-white">{p.title}</h3>
+  <div class="space-y-8 mb-8">
+    {featured.map((p, i) => (
+      <article class="reveal glow-border">
+        <div class="spot !border-0 !rounded-[calc(1.5rem-1px)] p-8 md:p-12 grid lg:grid-cols-[1fr_300px] gap-10">
+          <div class="relative">
+            <div class="flex items-center gap-4 mb-6">
+              <span class="font-display font-extrabold text-5xl md:text-6xl text-accent leading-none">0{i + 1}</span>
+              <span class="kicker">Projet vedette</span>
+            </div>
+            <h3 class="font-display text-3xl md:text-5xl font-bold text-white tracking-tight leading-[1.05] mb-4">{p.title}</h3>
+            <p class="text-lg text-ink-muted mb-8">{p.tagline}</p>
+            <ul class="space-y-4">
+              {p.points.map((pt) => (
+                <li class="flex gap-4 text-ink-muted leading-relaxed">
+                  <span class="mt-2.5 w-4 h-px bg-accent shrink-0" aria-hidden="true"></span>
+                  <span>{pt}</span>
+                </li>
+              ))}
+            </ul>
           </div>
-          <a href={p.repo} target="_blank" rel="noopener" class="font-mono text-xs link border border-line rounded px-3 py-1.5 hover:border-accent">
-            Code source ↗
-          </a>
-        </div>
-        <p class="text-ink-muted mb-4">{p.tagline}</p>
-        <ul class="space-y-2 text-ink-muted text-sm leading-relaxed mb-5">
-          {p.points.map((pt) => (
-            <li class="flex gap-3">
-              <span class="text-accent mt-1.5">▹</span>
-              <span>{pt}</span>
-            </li>
-          ))}
-        </ul>
-        <div class="flex flex-wrap gap-2 mb-3">
-          {p.metrics.map((m) => (
-            <span class="font-mono text-xs px-2 py-1 rounded bg-accent/10 text-accent-soft">{m}</span>
-          ))}
-        </div>
-        <div class="flex flex-wrap gap-2">
-          {p.stack.map((s) => <span class="tag">{s}</span>)}
+          <aside class="relative flex flex-col gap-8 lg:border-l lg:border-line lg:pl-10">
+            <div>
+              <p class="kicker mb-3">En bref</p>
+              <ul class="space-y-2">
+                {p.metrics.map((m) => (
+                  <li class="font-display text-xl font-semibold text-white">{m}</li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <p class="kicker mb-3">Stack</p>
+              <div class="flex flex-wrap gap-2">
+                {p.stack.map((s) => <span class="tag">{s}</span>)}
+              </div>
+            </div>
+            <a href={p.repo} target="_blank" rel="noopener" class="btn-ghost group mt-auto self-start">
+              Code source
+              <Arrow class="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+            </a>
+          </aside>
         </div>
       </article>
     ))}
   </div>
 
   <div class="grid md:grid-cols-2 gap-6">
-    {projects.map((p) => (
-      <article class="card flex flex-col">
-        <div class="flex justify-between items-start gap-3 mb-3">
-          <h3 class="text-lg font-medium text-white">{p.title}</h3>
-          {p.status && (
-            <span class="inline-flex items-center gap-1.5 font-mono text-xs text-amber-300 border border-amber-300/40 bg-amber-300/10 rounded-full px-2.5 py-0.5 shrink-0 mt-1">
-              <span class="w-1.5 h-1.5 rounded-full bg-amber-300 animate-pulse"></span>
-              {p.status}
-            </span>
-          )}
-          {p.repo && (
-            <a href={p.repo} target="_blank" rel="noopener" class="link font-mono text-xs shrink-0 mt-1" aria-label={`Code source de ${p.title}`}>
-              GitHub ↗
-            </a>
-          )}
-        </div>
-        <ul class="space-y-2 text-ink-muted text-sm leading-relaxed mb-4 flex-1">
-          {p.points.map((pt) => (
-            <li class="flex gap-3">
-              <span class="text-accent mt-1.5">▹</span>
-              <span>{pt}</span>
-            </li>
-          ))}
-        </ul>
-        <div class="flex flex-wrap gap-2">
-          {p.stack.map((s) => <span class="tag">{s}</span>)}
-        </div>
-      </article>
-    ))}
+    {projects.map((p, i) => {
+      const Tag = p.repo ? 'a' : 'article';
+      const linkProps = p.repo ? { href: p.repo, target: '_blank', rel: 'noopener' } : {};
+      return (
+        <Tag {...linkProps} class="reveal spot group p-8 flex flex-col hover:-translate-y-1" style={`--i: ${i % 2}`}>
+          <div class="relative flex items-start justify-between gap-4 mb-6">
+            <span class="font-mono text-sm text-ink-faint">0{featured.length + i + 1}</span>
+            {p.status ? (
+              <span class="inline-flex items-center gap-2 font-mono text-xs text-violet-soft border border-violet/40 bg-violet/10 rounded-full px-3 py-1">
+                <span class="relative flex w-1.5 h-1.5">
+                  <span class="absolute inset-0 rounded-full bg-violet animate-ping"></span>
+                  <span class="relative w-1.5 h-1.5 rounded-full bg-violet"></span>
+                </span>
+                {p.status}
+              </span>
+            ) : p.repo ? (
+              <span class="w-10 h-10 grid place-items-center rounded-full border border-line text-ink-muted group-hover:bg-accent group-hover:border-accent group-hover:text-bg transition-all duration-300 group-hover:rotate-45">
+                <Arrow />
+              </span>
+            ) : null}
+          </div>
+          <h3 class="relative font-display text-2xl font-semibold text-white leading-tight mb-5 group-hover:text-accent transition-colors">{p.title}</h3>
+          <ul class="relative space-y-3 text-ink-muted text-sm leading-relaxed mb-8 flex-1">
+            {p.points.map((pt) => (
+              <li class="flex gap-3">
+                <span class="mt-2 w-3 h-px bg-ink-faint shrink-0" aria-hidden="true"></span>
+                <span>{pt}</span>
+              </li>
+            ))}
+          </ul>
+          <div class="relative flex flex-wrap gap-2">
+            {p.stack.map((s) => <span class="tag">{s}</span>)}
+          </div>
+        </Tag>
+      );
+    })}
   </div>
 
-  <p class="mt-10 text-center">
-    <a href="https://github.com/hajarbaais?tab=repositories" target="_blank" rel="noopener" class="font-mono text-sm link">
-      Voir tous les dépôts sur GitHub ↗
+  <div class="reveal mt-16 flex justify-center">
+    <a href="https://github.com/hajarbaais?tab=repositories" target="_blank" rel="noopener" class="btn-ghost group">
+      Voir tous les dépôts sur GitHub
+      <Arrow class="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
     </a>
-  </p>
+  </div>
 </section>
