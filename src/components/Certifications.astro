@@ -1,12 +1,23 @@
 ---
+import Arrow from './Arrow.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+const dir = `${base}certificats/`;
+
+// file : nom du fichier dans public/certificats (sans extension) — .jpg pour l'aperçu, .pdf si pdf: true
 const certs = [
-  'ISO/IEC 27001 — Système de management de la sécurité de l’information',
-  'Cisco Ethical Hacker',
-  'Cisco Network Fundamentals',
-  'Cisco Introduction to Cybersecurity',
-  'Cybrary : Introduction to AI Technology',
-  'Formation droit numérique et protection des données — CNDP',
+  { title: 'ISO/IEC 27001 — Système de management de la sécurité de l’information', meta: 'Norme SMSI' },
+  { title: 'Hack The Box — Morocco Meetups Summer CTF Cup', meta: '4e / 311 équipes · 12/12 challenges · 2026', file: 'htb-ctf-cup' },
+  { title: 'Cisco Ethical Hacker', meta: 'Cisco Networking Academy · 2025', file: 'cisco-ethical-hacker', pdf: true },
+  { title: 'Cisco Endpoint Security', meta: 'Cisco Networking Academy · 2025', file: 'cisco-endpoint-security', pdf: true },
+  { title: 'Cisco Introduction to Cybersecurity', meta: 'Cisco Networking Academy · 2025', file: 'cisco-intro-cybersecurity', pdf: true },
+  { title: 'Cisco Networking Basics', meta: 'Cisco Networking Academy · 2025', file: 'cisco-networking-basics', pdf: true },
+  { title: 'Aperçu des menaces de cybersécurité', meta: 'LinkedIn Learning · 2025', file: 'linkedin-menaces-cyber', pdf: true },
+  { title: 'Introduction to AI Technology', meta: 'Cybrary · 2025', file: 'cybrary-intro-ai', pdf: true },
+  { title: 'Formation droit numérique et protection des données', meta: 'CNDP' },
 ];
+
+const pad = (n: number) => String(n).padStart(2, '0');
 ---
 <section id="certifications" class="section">
   <div class="sec-head">
@@ -18,19 +29,124 @@ const certs = [
   <p class="kicker -mt-8 mb-10">Certifications & formations</p>
 
   <ul class="border-t border-line">
-    {certs.map((c, i) => (
-      <li class="reveal group relative border-b border-line overflow-hidden" style={`--i: ${i}`}>
-        <span class="absolute inset-0 bg-accent origin-bottom scale-y-0 group-hover:scale-y-100 transition-transform duration-500 ease-[cubic-bezier(0.2,0.7,0.2,1)]" aria-hidden="true"></span>
-        <div class="relative flex items-center gap-6 md:gap-10 py-5 px-2 md:px-4">
-          <span class="font-mono text-sm text-ink-faint group-hover:text-bg transition-colors w-8">0{i + 1}</span>
-          <span class="flex-1 font-display text-lg md:text-xl font-medium text-white group-hover:text-bg group-hover:translate-x-2 transition-all duration-300">
-            {c}
-          </span>
-          <svg class="hidden sm:block w-6 h-6 text-ink-faint group-hover:text-bg group-hover:rotate-90 transition-all duration-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-            <path d="M12 4v16M4 12h16" />
-          </svg>
-        </div>
-      </li>
-    ))}
+    {certs.map((c, i) => {
+      const Row = c.file ? 'button' : 'div';
+      return (
+        <li class="reveal group relative border-b border-line overflow-hidden" style={`--i: ${i}`}>
+          <span class="absolute inset-0 bg-accent origin-bottom scale-y-0 group-hover:scale-y-100 group-focus-within:scale-y-100 transition-transform duration-500 ease-[cubic-bezier(0.2,0.7,0.2,1)]" aria-hidden="true"></span>
+          <Row
+            type={c.file ? 'button' : undefined}
+            class="relative w-full text-left flex items-center gap-5 md:gap-10 py-5 px-2 md:px-4 outline-none"
+            data-cert={c.file ? '' : undefined}
+            data-title={c.file ? c.title : undefined}
+            data-meta={c.file ? c.meta : undefined}
+            data-img={c.file ? `${dir}${c.file}.jpg` : undefined}
+            data-pdf={c.pdf ? `${dir}${c.file}.pdf` : undefined}
+            aria-haspopup={c.file ? 'dialog' : undefined}
+          >
+            <span class="font-mono text-sm text-ink-faint group-hover:text-bg group-focus-within:text-bg transition-colors w-8 shrink-0">{pad(i + 1)}</span>
+            <span class="flex-1 min-w-0 group-hover:translate-x-2 transition-transform duration-300">
+              <span class="block font-display text-lg md:text-xl font-medium text-white group-hover:text-bg group-focus-within:text-bg transition-colors">
+                {c.title}
+              </span>
+              <span class="block font-mono text-xs mt-1 text-ink-faint group-hover:text-bg/70 group-focus-within:text-bg/70 transition-colors">
+                {c.meta}
+              </span>
+            </span>
+            {c.file ? (
+              <span class="shrink-0 inline-flex items-center gap-2 font-mono text-xs px-3 py-1.5 rounded-full border border-accent/40 text-accent group-hover:border-bg group-hover:text-bg group-focus-within:border-bg group-focus-within:text-bg transition-colors">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+                  <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z" /><circle cx="12" cy="12" r="3" />
+                </svg>
+                <span class="hidden sm:inline">Voir</span>
+              </span>
+            ) : (
+              <svg class="hidden sm:block shrink-0 w-6 h-6 text-ink-faint group-hover:text-bg group-hover:rotate-90 transition-all duration-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <path d="M12 4v16M4 12h16" />
+              </svg>
+            )}
+          </Row>
+        </li>
+      );
+    })}
   </ul>
+
+  <dialog id="cert-modal" aria-labelledby="cert-modal-title" class="cert-modal">
+    <div class="flex flex-col max-h-[92vh] rounded-2xl border border-line bg-bg-card overflow-hidden">
+      <div class="flex items-start gap-4 px-5 py-4 border-b border-line">
+        <div class="flex-1 min-w-0">
+          <p id="cert-modal-title" class="font-display text-base md:text-lg font-semibold text-white leading-snug"></p>
+          <p id="cert-modal-meta" class="font-mono text-xs text-accent mt-1"></p>
+        </div>
+        <button type="button" data-close class="w-9 h-9 shrink-0 grid place-items-center rounded-full text-ink-muted hover:text-white hover:bg-white/5" aria-label="Fermer">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" /></svg>
+        </button>
+      </div>
+      <div class="overflow-auto p-3 md:p-5 bg-bg">
+        <img id="cert-modal-img" alt="" class="block mx-auto max-w-full h-auto rounded-lg" />
+      </div>
+      <div class="flex flex-wrap justify-end gap-3 px-5 py-4 border-t border-line">
+        <a id="cert-modal-pdf" href="#" target="_blank" rel="noopener" class="btn btn-ghost text-sm">
+          Ouvrir le PDF <Arrow class="w-4 h-4" />
+        </a>
+        <button type="button" data-close class="btn btn-primary text-sm">Fermer</button>
+      </div>
+    </div>
+  </dialog>
 </section>
+
+<style>
+  .cert-modal {
+    width: min(960px, calc(100vw - 32px));
+    max-height: 92vh;
+    padding: 0;
+    margin: auto;
+    background: transparent;
+    color: inherit;
+    overflow: visible;
+  }
+  .cert-modal::backdrop {
+    background: rgba(5, 11, 20, 0.82);
+    backdrop-filter: blur(6px);
+  }
+  .cert-modal[open] {
+    animation: modal-in 0.35s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  @keyframes modal-in {
+    from {
+      opacity: 0;
+      transform: translateY(16px) scale(0.97);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .cert-modal[open] {
+      animation: none;
+    }
+  }
+</style>
+
+<script>
+  const modal = document.getElementById('cert-modal') as HTMLDialogElement | null;
+  const title = document.getElementById('cert-modal-title');
+  const meta = document.getElementById('cert-modal-meta');
+  const img = document.getElementById('cert-modal-img') as HTMLImageElement | null;
+  const pdf = document.getElementById('cert-modal-pdf') as HTMLAnchorElement | null;
+
+  document.querySelectorAll<HTMLButtonElement>('[data-cert]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      if (!modal || !img || !pdf) return;
+      const d = btn.dataset;
+      title!.textContent = d.title ?? '';
+      meta!.textContent = d.meta ?? '';
+      img.src = d.img ?? '';
+      img.alt = `Certificat — ${d.title}`;
+      pdf.style.display = d.pdf ? '' : 'none';
+      if (d.pdf) pdf.href = d.pdf;
+      modal.showModal();
+    });
+  });
+
+  modal?.querySelectorAll('[data-close]').forEach((b) => b.addEventListener('click', () => modal.close()));
+  // Ferme en cliquant sur le fond
+  modal?.addEventListener('click', (e) => e.target === modal && modal.close());
+</script>
