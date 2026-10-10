@@ -6,7 +6,6 @@ const dir = `${base}certificats/`;
 
 // file : nom du fichier dans public/certificats (sans extension) — .jpg pour l'aperçu, .pdf si pdf: true
 const certs = [
-  { title: 'ISO/IEC 27001 — Système de management de la sécurité de l’information', meta: 'Norme SMSI' },
   { title: 'Hack The Box — Morocco Meetups Summer CTF Cup', meta: '4e / 311 équipes · 12/12 challenges · 2026', file: 'htb-ctf-cup' },
   { title: 'Cisco Ethical Hacker', meta: 'Cisco Networking Academy · 2025', file: 'cisco-ethical-hacker', pdf: true },
   { title: 'Cisco Endpoint Security', meta: 'Cisco Networking Academy · 2025', file: 'cisco-endpoint-security', pdf: true },
@@ -14,7 +13,16 @@ const certs = [
   { title: 'Cisco Networking Basics', meta: 'Cisco Networking Academy · 2025', file: 'cisco-networking-basics', pdf: true },
   { title: 'Aperçu des menaces de cybersécurité', meta: 'LinkedIn Learning · 2025', file: 'linkedin-menaces-cyber', pdf: true },
   { title: 'Introduction to AI Technology', meta: 'Cybrary · 2025', file: 'cybrary-intro-ai', pdf: true },
-  { title: 'Formation droit numérique et protection des données', meta: 'CNDP' },
+];
+
+const formations = [
+  { title: 'ISO/IEC 27001 — Système de management de la sécurité de l’information', meta: 'Formation · norme SMSI' },
+  { title: 'Droit numérique et protection des données', meta: 'Formation · CNDP' },
+];
+
+const groups = [
+  { label: 'Certificats', items: certs },
+  { label: 'Formations', items: formations },
 ];
 
 const pad = (n: number) => String(n).padStart(2, '0');
@@ -26,10 +34,12 @@ const pad = (n: number) => String(n).padStart(2, '0');
     <span class="sec-line"></span>
   </div>
 
-  <p class="kicker -mt-8 mb-10">Certifications & formations</p>
+  {groups.map((g, gi) => (
+  <div class={gi > 0 ? "mt-16" : ""}>
+  <p class={`kicker mb-6 ${gi === 0 ? "-mt-8" : ""}`}>{g.label}</p>
 
   <ul class="border-t border-line">
-    {certs.map((c, i) => {
+    {g.items.map((c: { title: string; meta: string; file?: string; pdf?: boolean }, i) => {
       const Row = c.file ? 'button' : 'div';
       return (
         <li class="reveal group relative border-b border-line overflow-hidden" style={`--i: ${i}`}>
@@ -70,6 +80,8 @@ const pad = (n: number) => String(n).padStart(2, '0');
       );
     })}
   </ul>
+  </div>
+  ))}
 
   <dialog id="cert-modal" aria-labelledby="cert-modal-title" class="cert-modal">
     <div class="flex flex-col max-h-[92vh] rounded-2xl border border-line bg-bg-card overflow-hidden">
