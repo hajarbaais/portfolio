@@ -59,13 +59,13 @@ const projects = [
     ],
   },
   {
-    title: 'LLM Guardrails contre Prompt Injection et Jailbreak',
+    title: 'Détection de trafic C2 dans les flux DNS et HTTPS',
     status: 'En cours',
-    stack: ['Python', 'FastAPI', 'DeBERTa-v3', 'Llama Guard 3', 'LangChain', 'garak / PyRIT'],
+    stack: ['Python', 'Zeek', 'PyTorch', 'LSTM / Transformer', 'SHAP', 'Streamlit', 'Docker'],
     points: [
-      'Proxy de sécurité multicouche placé devant une application LLM (RAG + agent avec outils) : filtre d’entrée, prompt durci, filtre de sortie et scan des documents RAG.',
-      'Couvre les injections directes et indirectes, les jailbreaks, l’obfuscation et les attaques multilingues (français, arabe, darija).',
-      'Objectif : diviser par 5 le taux de succès des attaques avec moins de 5 % de faux positifs ; décisions journalisées et mappées sur MITRE ATLAS (OWASP LLM01).',
+      'Détection par Machine Learning des tunnels DNS et du balisage HTTPS, à partir des seules métadonnées réseau (PCAP, logs Zeek), sans déchiffrer le trafic.',
+      'Features d’entropie de Shannon, de temps inter-arrivée robustes au jitter et d’empreintes TLS JA3/JA4 ; autoencodeur entraîné sur le trafic bénin combiné à un modèle séquentiel.',
+      'Objectif : recall ≥ 98 % avec moins de 0,1 % de faux positifs et une alerte en moins de 5 s, chaque alerte expliquée par SHAP et mappée sur MITRE ATT&CK (T1071, T1572).',
     ],
   },
   {
